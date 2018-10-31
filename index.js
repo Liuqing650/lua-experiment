@@ -4,29 +4,55 @@ const fs = require('fs');
 const chalk = require('chalk');
 
 const BASE_DIRNAME = __dirname;
-const printLog = (fileName, str) => {
-  const logPath = path.join(BASE_DIRNAME, `${fileName}-${new Date}.log`);
+const isManageLog = false;
+
+const readLog = (filePath) => {
+  console.log(fs.readFileSync(`${filePath}`, {
+    encoding: 'utf8'
+  }));
+  // console.log(chalk.bgRed(fs.readFileSync(`${filePath}`, 'utf8')));
+}
+const writeFile = (filePath, data, callback) => {
+  fs.writeFile(filePath, data, (error) => {
+    if (error) throw err;
+    console.log(chalk.yellow(`【error】: lua is error， log is ${filePath}`));
+    if (callback) {
+      callback(filePath);
+    }
+  });
+}
+const printLog = (fileName, log) => {
+  const date = new Date();
+  const logDate = date.toLocaleDateString().replace(/\//g, "-");
+  const logPath = path.join(BASE_DIRNAME, `/log/`);
+  const logFile = path.join(BASE_DIRNAME, `/log/${fileName}-${logDate}.log`);
   fs.exists(logPath, (exists) => {
-    if(exists) {
-      callback();
+    if(!exists) {
+      fs.mkdir(logPath, () => {
+        writeFile(logFile, log, readLog);
+      });
     } else {
-      fs.mkdir(savePath, callback);
+      writeFile(logFile, log, readLog);
     }
   })
-  fs.writeFile(logPath, str);
-  console.log(chalk.yellow(`【error】: lua is error， log is ${logPath}...`));
 };
 
 const options = {
-  stdio: 'inherit'
+  stdio: isManageLog ? [0, 1, process.stderr] : 'inherit',
+  env: process.env
 };
 
-const lua = process.spawn('lua', [`${BASE_DIRNAME}/code/index.lua`], options);
+const lua = process.spawn('lua', [`./code/index.lua`], options);
+
+// 是否接管日志
+if (isManageLog) {
+  lua.stderr.on('data', (data) => {
+    printLog('lua错误日志', data);
+  });
+}
 
 lua.on('exit', (code) => {
-  if (code === 0) {
-    console.log(chalk.magenta('【success】: lua is start!'));
-  } else {
-    printLog('lua错误日志', JSON.stringify(code));
+  if (code !== 0) {
+    console.log(chalk.magenta('exit lua!'));
   }
 });
