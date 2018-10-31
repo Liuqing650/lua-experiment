@@ -1,4 +1,4 @@
--- 表的的构构造造
+-- 表的的构造
 
 days = {"Sunday", "Monday", "Tuesday", "Wednesday",     "Thursday", "Friday", "Saturday"}
 print(days[4])
