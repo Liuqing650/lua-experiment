@@ -1,9 +1,22 @@
-print("2" > "15")
-print(4 and 5)
+-- 表的的构构造造
 
--- a and b   -- 如果a为false，则返回a，否则返回b
--- a or  b   -- 如果a为true，则返回a，否则返回b 
--- c语言： a ? b : c
--- lua: (a and b) or c
--- a=true -> b -> b or c
--- a=false -> a -> a or c
+days = {"Sunday", "Monday", "Tuesday", "Wednesday",     "Thursday", "Friday", "Saturday"}
+print(days[4])
+
+polyline = {
+  color = "blue",
+  thickness = 2,
+  npoints = 4,
+  {
+    x = 0, y = 0,
+  },
+  {
+    x = 10, y = 0,
+  },
+  {
+    x = -10, y = 10,
+  },
+};
+
+print(polyline.color)
+print(polyline[2].x)
