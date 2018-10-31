@@ -1,0 +1,16 @@
+{
+  "name": "lua-experiment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.lua",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./index.js --watch ./code/*  --watch ./index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chalk": "^2.4.1",
+    "nodemon": "^1.18.5"
+  }
+}
