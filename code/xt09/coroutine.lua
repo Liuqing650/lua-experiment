@@ -1,3 +1,5 @@
+-- coroutine 协同函数
+
 co = coroutine.create( function ()
   return 9, 7
 end)
