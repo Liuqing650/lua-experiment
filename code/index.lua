@@ -1,11 +1,6 @@
 -- 函数
-addFn = require('./code/add')
-print(addFn);
-print(55665)
--- add(5)
--- for line in io.lines() do
---   if line == 'exit' then
---     break;
---   end;
---   io.write(line, '\n')
--- end
+
+-- 协同程序（coroutine）
+-- require('./code/coroutine')
+-- 用作迭代器的协同
+require('./code/coroutinepermgen')
