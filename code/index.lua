@@ -5,4 +5,4 @@
 -- 用作迭代器的协同
 -- require('./code/xt09/coroutinepermgen')
 -- 非抢占式多线程
-require('./code/xt09/luasocket')
+require('./code/demo10/index')
